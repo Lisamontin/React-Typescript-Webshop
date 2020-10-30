@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Home.scss'
-
-interface IProducts {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  year: number;
-  // productCategory: <create interface?>;
-};
+import IProducts from '../../models/interface/IProducts';
+// import { Link } from 'react-router-dom';
+// import products from '../../api/products/ProductsData';
 
 
 export default function Home() {
@@ -22,6 +15,12 @@ export default function Home() {
   const [products, setProducts] = useState(defaultValue);
 
 
+  function showProduct() {
+    console.log('onclick works!');
+    // this.context.router.push('../../product-detail/ProductDetail.tsx');
+    
+  }
+
 
   useEffect(() => {
     axios.get('https://medieinstitutet-wie-products.azurewebsites.net/api/products')
@@ -31,7 +30,8 @@ export default function Home() {
 
   let productsHtml = products.map((product: IProducts) => {
     return (
-        <div className="product" key={product.id}>
+      <a onClick={showProduct} href="#" className="product" key={product.id}>
+    
           <dt>
             <img className ="product-image" src={product.imageUrl} alt="product-image"/>
           </dt>
@@ -39,16 +39,21 @@ export default function Home() {
               {product.name}
             </span>
           {/* <dd>{product.description}</dd> */}
+      {/* <Link to="ProductDetail">Details</Link> */}
         <button type="button">Add to cart</button>
-      </div>
+      </a>
+
+
     )
   });
 
   return(
-    <div>
+    <>
       <h1>HOME component</h1>
-      <a href="#">{productsHtml}</a>
+      <button className="basket-button" type="button">basket</button>
+    <div className="product-page">
+      {productsHtml}
     </div>
+    </>
   )
-
 }

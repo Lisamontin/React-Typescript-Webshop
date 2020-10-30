@@ -1,0 +1,43 @@
+body {
+  background-color: rgba(186, 187, 184, 0.377);
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.product-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 4rem auto;
+  max-width: 75%;
+  overflow: hidden;
+  clear: both;
+}
+
+.product {
+  text-align: center;
+  max-width: 10rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05), 0 5px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 100ms ease-in-out;
+}
+
+.product-image {
+  max-width: 100px;
+}
+
+.product-name {
+  font-size: medium;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.basket-button {
+  margin: 20px;
+  float: right;
+}
