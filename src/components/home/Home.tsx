@@ -15,13 +15,6 @@ export default function Home() {
   const [products, setProducts] = useState(defaultValue);
 
 
-  function showProduct() {
-    console.log('onclick works!');
-    // this.context.router.push('../../product-detail/ProductDetail.tsx');
-    
-  }
-
-
   useEffect(() => {
     axios.get('https://medieinstitutet-wie-products.azurewebsites.net/api/products')
       .then(response => setProducts(response.data));
@@ -30,19 +23,36 @@ export default function Home() {
 
   let productsHtml = products.map((product: IProducts) => {
     return (
-      <a onClick={showProduct} href="#" className="product" key={product.id}>
+      // <a href="#" className="product" key={product.id}>
     
-          <dt>
-            <img className ="product-image" src={product.imageUrl} alt="product-image"/>
-          </dt>
-            <span className="product-name">
-              {product.name}
-            </span>
-          {/* <dd>{product.description}</dd> */}
-      {/* <Link to="ProductDetail">Details</Link> */}
-        <button type="button">Add to cart</button>
-      </a>
+      //     <dt>
+      //       <img className ="product-image" src={product.imageUrl} alt="product-image"/>
+      //     </dt>
+      //       <span className="product-name">
+      //         {product.name}
+      //       </span>
+      //   <button type="button">Add to cart</button>
+      // </a>
 
+      <section>
+        <div className="products" key={product.id}>
+          <div className="card">
+            <a href="/productdetail">
+              <img src={product.imageUrl} alt=""/>
+            </a>
+            <div className="box">
+              <h3 title={product.name}>
+                <a href="/productdetail">{product.name}</a>
+              </h3>
+                <p className="description">{product.description}</p>
+              <h4>{product.price} Kr</h4>
+              <button>Add to cart</button>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
 
     )
   });
@@ -50,7 +60,7 @@ export default function Home() {
   return(
     <>
       <h1>HOME component</h1>
-      <button className="basket-button" type="button">basket</button>
+      
     <div className="product-page">
       {productsHtml}
     </div>

@@ -5,15 +5,19 @@ import Admin from './components/admin/Admin';
 import Cart from './components/cart/Cart';
 import Checkout from './components/checkout/Checkout';
 import Home from './components/home/Home';
+import Navbar from './components/navbar/Navbar';
 import NotFoundPage from './components/notfoundpage/NotFoundPage';
 import ProductDetail from "./components/product-detail/ProductDetail"
 
 
 function App() {
   return (
-    <>
+    <div className="App">
+
       <Router>
-        <nav><Link to="Cart"><span><i className="fas fa-shopping-cart"></i></span></Link></nav>
+        <nav>
+          <Navbar></Navbar>
+        </nav>
         
         <Switch>
           <Route path="/" exact={true} component={Home}></Route>
@@ -29,7 +33,7 @@ function App() {
         </Switch>
 
       </Router>
-    </>
+      </div>
   );
 }
 
