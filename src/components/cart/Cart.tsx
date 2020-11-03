@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 export default function Cart() {
 
+const CartItems = [];
+
   return (
     <div>
       <h1>Cart component</h1>

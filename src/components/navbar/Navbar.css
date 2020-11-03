@@ -14,7 +14,7 @@ header{
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.658);
   margin-bottom: 20px;
 }
 

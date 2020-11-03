@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.scss';
+import './Navbar.css';
 
 export default function Navbar() {
 
@@ -12,7 +12,8 @@ export default function Navbar() {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/">Products</Link></li>
-        <li>
+        <li className="cart-icon">
+          <span>0</span>
           <Link to="Cart"><span><i className="fas fa-shopping-cart"></i></span></Link>
         </li>
       </ul>
