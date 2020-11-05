@@ -7,9 +7,6 @@ import ICart from '../../models/interface/ICart';
 import IaddToCartProps from '../../models/interface/IAddToCart';
 
 
-// import { Link } from 'react-router-dom';
-// import products from '../../api/products/ProductsData';
-
 
 interface IParams{
   id: string;
@@ -21,26 +18,26 @@ interface IproductsProps{
 
 export default function Home(props:IaddToCartProps) { //props to send data to App, props:IproductsProps
   
-/////////experimenatl code//////////add items to cart
-const [totalPrice, setTotalPrice] = useState(0)
-const myCart: Array<{ productId: number, amount: number}> = []; //defaultvalue...?
-const [cart, setCart] = useState(myCart);
+////////add items to cart////////
+// const [totalPrice, setTotalPrice] = useState(0)
+// const myCart: Array<{ productId: number, amount: number}> = []; //defaultvalue...?
+// const [cart, setCart] = useState(myCart);
 
-useEffect(() => {
-  setCart(myCart);
-}, []);
+// useEffect(() => {
+//   setCart(myCart);
+// }, []);
 
-const addToCart = (props: ICart) => {
-  myCart.push(...cart);
-  let p = {
-    productId: props.productId,
-    amount: props.amount
-  }
+// const addToCart = (props: ICart) => {
+//   myCart.push(...cart);
+//   let p = {
+//     productId: props.productId,
+//     amount: props.amount
+//   }
 
-  myCart.push(p);
-  setCart(myCart);
+//   myCart.push(p);
+//   setCart(myCart);
 
-} 
+// } 
 
 
   const defaultValue:IProducts [] = [];
@@ -56,8 +53,8 @@ const addToCart = (props: ICart) => {
   
   let productsHtml = products.map((product: IProducts) => {
      return (
-      <section>
-        <div className="products" key={product.id}>
+      <section key={product.id}>
+        <div className="products" >
           <div className="card">
             <a href={`/productdetail/${product.id}`}>
               <img src={product.imageUrl} alt=""/>
@@ -66,9 +63,11 @@ const addToCart = (props: ICart) => {
               <h3 title={product.name}>
                 <a href="/productdetail">{product.name}</a>
               </h3>
-                <p className="description">{product.description}</p>
+                {/* <p className="description">{product.description}</p> */}
               <h4>{product.price} Kr</h4>
-              <button type="button" onClick={addToCart}>Add to cart</button>
+              <button>Details</button>
+              <button>Add To Cart</button>
+              {/* <button type="button" onClick={addToCart}>Add to cart</button> */}
             </div>
           </div>
         </div>

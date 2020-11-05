@@ -1,0 +1,15 @@
+.form{
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 15px;
+}
+
+.form input {
+  padding: 5px;
+  display: flex;
+  color: red;
+}
+
+button {
+  margin-top: 10px
+}

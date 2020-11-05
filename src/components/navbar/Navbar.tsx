@@ -13,8 +13,8 @@ export default function Navbar() {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/">Products</Link></li>
         <li className="cart-icon">
-          <span>0</span>
           <Link to="Cart"><span><i className="fas fa-shopping-cart"></i></span></Link>
+          <span>0</span>
         </li>
       </ul>
     </header>

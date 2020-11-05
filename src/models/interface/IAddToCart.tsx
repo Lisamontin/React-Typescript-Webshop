@@ -2,5 +2,6 @@ import ICart from "./ICart";
 
 
 export default interface IaddToCartProps{
-  updateCount(value: ICart):void;
+  //updateCart():void; //to send "template" function to parent component 
+  updateCart(value: ICart):void;
 }

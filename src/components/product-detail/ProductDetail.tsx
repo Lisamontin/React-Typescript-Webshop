@@ -4,6 +4,7 @@ import axios from "axios";
 import ICart from '../../models/interface/ICart'
 import IProducts from '../../models/interface/IProducts';
 import IaddToCartProps from "../../models/interface/IAddToCart";
+import "../product-detail/productDetail.css"
 
 
 interface IParams{
@@ -30,34 +31,35 @@ export default function ProductDetail(props: IaddToCartProps) {
 
     ///////////////////////////
     const [cart, setCart] = useState({})
-    const [cartTotal, setCartTotal] = useState(0)
+    const [cartTotal, setCartTotal] = useState(0);
 
-    function addToCart(){
+    
+
+    function addToCart(){ //when i click and this function runs, it actually runs the function
       let p = {
         productId: product.id,
         amount: product.price
-      }
-      props.updateCount(p);
+      };
+      props.updateCart(p);
       console.log(p);
-      console.log('button was clicked');
-      myCart.push(p);
-      setCart(myCart);
+      console.log(cart);
     }
-    console.log(cart);
 
-    return(
+  return(
       
-      <div>
+  <div>
     <h1> Product detail Component</h1>
-    <h3></h3>
-<h3>{product.name}</h3>
-  <img src={product.imageUrl}></img>
-    <button type="button" onClick={addToCart}>add to cart</button>
-    <button>Go back to products</button>
+   <h3></h3>
+   <h3>{product.name}</h3>
+   <img src={product.imageUrl}></img>
+    <p className="description">{product.description}</p>
+  <h3>{product.price} Kr</h3>
+   <button type="button" onClick={addToCart}>add to cart</button>
+   
     
   </div>
 
-)
+  )
 }
 
 ///////////////////////////////////
