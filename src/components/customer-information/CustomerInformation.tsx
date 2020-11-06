@@ -10,7 +10,6 @@ export interface IUserForm{
   zip: number;
   city: string;
   email: string;
-
 }
 
 interface IUserFormProps{
@@ -54,7 +53,7 @@ export default function Child(props: IUserFormProps) {
           <label htmlFor="email">E-Mail</label>
           <input type="text" id="email" name="email" value={ userForm.email } onChange={ updateUserForm }/>
   
-          <button type="button" onClick={handleClick}>Buy button from customerinformation</button>
+          <button type="button" onClick={handleClick}>Next</button>
       </form>
   )
 }

@@ -1,29 +1,39 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ICart from '../../models/interface/ICart';
+import IFinalCart from '../../models/interface/IFinalCart';
 
-// interface ICartTotal{
-//   total: number;
-// }
-interface IFinalCart{
-  finalCart: Array<ICart>
-}
+
+
 
 export default function Cart(props: IFinalCart) {
 
-const [cart, setCart] = useState([]); //get from APP? Productdetail?
+// const [cart, setCart] = useState([]); //get from APP? Productdetail?
 const [total, setTotal] = useState(0);
 
+console.log(props.finalCart, 'final cart logged from cart');
+
+
+let runningTotal = 0
+for(let i = 0; i < props.finalCart.length; i++){
+
+  runningTotal += props.finalCart[i].amount;
+
+}
+useEffect( () => {
+  setTotal(runningTotal);
+},[])
+
+console.log(total);
 
 
   return (
     <div>
       <h1>Cart component</h1>
       <h3>display cart array</h3>
-      <Link to="checkout">checkout</Link>
-  <p>{props.finalCart}</p>
-      <button>go to checkout</button>
+      <Link to="/checkout">checkout</Link>
+  <p>Total amount to pay: {total} Kr</p>
+
       
     </div>
   )

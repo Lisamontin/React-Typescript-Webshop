@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, Route, Switch, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Admin from './components/admin/Admin';
 import Cart from './components/cart/Cart';
 import Checkout from './components/checkout/Checkout';
+import ConfirmationPage from './components/confirmation-page/ConfirmationPage';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import NotFoundPage from './components/notfoundpage/NotFoundPage';
@@ -12,31 +13,38 @@ import ICart from './models/interface/ICart';
 
 
 
-function App() {
+function App() { 
+
+  //PARENT Holds the cart state for productDetail, Home, Cart and checkout, 
+  // todo - RESTRUCTURE to a separate parent component.
+
+  const cartDefault: Array<{ productId: number, amount: number}> = []; 
+  const [cart, setCart] = useState(cartDefault); //holds/saves the state from ProductDetail cart state 
+  const [total, setTotal] = useState(0);
 
 
-const myCart: Array<{ productId: number, amount: number}> = []; 
-const [cart, setCart] = useState(myCart); //holds/saves the state from ProductDetail cart state 
+//runs when i click add to cart button in ProductDetail component, THIS function will run
+  const addToCart = (props: ICart) => { // updateCart "=" addToCart, wants a value with datatype Icart
+    // cartDefault.push(...cart); //separate objects, cart = array of objects
+    // let p = {
+    //   productId: props.productId,
+    //   amount: props.amount
+    // };
 
-useEffect(() => { ////WHY?
-  setCart(myCart);
-}, []);
+    // cartDefault.push(props); // push the products id and cost into the empty cartDefault array
+    setCart([...cart, props] ); //saves values from child(ProductDetails) pushed into cartDefault array in Cart state.
+    
+    let totalSum = 0;
+    for(let i = 0; i < cart.length; i++){
+      cart[i].amount += totalSum;
+    }
+    setTotal(totalSum);
 
 
-//runs when i click add to cart button in ProductDetail component
-const addToCart = (props: ICart) => { //props: ICart, updateCart "=" addToCart, 
-  myCart.push(...cart); //separate objects, cart = array of objects
-  let p = {
-    productId: props.productId,
-    amount: props.amount
-  };
-
-  myCart.push(p); // push the products id and cost into the empty myCart array
-  setCart(myCart); //saves values from child(ProductDetails) pushed into myCart array in Cart state.
-
-  console.log(...cart, '...cart logged here---------------');
-  console.log(cart, 'cart logged here========');
-} 
+    console.log(total, 'total logged here');
+    console.log(...cart, '...cart logged here---------------');
+    console.log(cart, 'cart logged here========');
+  } 
 
 
   return (
@@ -44,7 +52,7 @@ const addToCart = (props: ICart) => { //props: ICart, updateCart "=" addToCart,
 
       <Router>
         <nav>
-          <Navbar></Navbar>
+          <Navbar finalCart={cart}></Navbar>
         </nav>
         
         <Switch>
@@ -52,11 +60,18 @@ const addToCart = (props: ICart) => { //props: ICart, updateCart "=" addToCart,
             <Home updateCart={addToCart }></Home>
           </Route>
           <Route path="/productdetail/:id">
-            <ProductDetail updateCart={addToCart}></ProductDetail>
+            <ProductDetail updateCart={addToCart}></ProductDetail> 
           </Route>
-          <Route path="/cart" component={Cart}></Route>
-          <Route path="/checkout" component={Checkout}></Route>
+          <Route path="/cart">
+            <Cart finalCart={cart}></Cart>
+          </Route>
+          <Route path="/checkout">
+          <Checkout finalCart={cart}></Checkout>
+          </Route>
           <Route path="/admin" component={Admin}></Route>
+          <Route path="/confirmationpage">
+            <ConfirmationPage></ConfirmationPage>
+          </Route>
           <Route path="*" component={NotFoundPage}></Route>
 
         </Switch>

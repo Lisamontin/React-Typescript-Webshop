@@ -1,56 +1,49 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css'
 import IProducts from '../../models/interface/IProducts';
-import ICart from '../../models/interface/ICart';
 import IaddToCartProps from '../../models/interface/IAddToCart';
 
 
 
-interface IParams{
-  id: string;
-}
+// interface IParams{
+//   id: string;
+// }
 
-interface IproductsProps{
-  product:IProducts[]
-}
+// interface IproductsProps{
+//   product:IProducts[]
+// }
 
-export default function Home(props:IaddToCartProps) { //props to send data to App, props:IproductsProps
+export default function Home(props:IaddToCartProps) { //props to ta emot data from App, props:IproductsProps
   
 ////////add items to cart////////
-// const [totalPrice, setTotalPrice] = useState(0)
-// const myCart: Array<{ productId: number, amount: number}> = []; //defaultvalue...?
-// const [cart, setCart] = useState(myCart);
 
-// useEffect(() => {
-//   setCart(myCart);
-// }, []);
-
-// const addToCart = (props: ICart) => {
-//   myCart.push(...cart);
-//   let p = {
-//     productId: props.productId,
-//     amount: props.amount
-//   }
-
-//   myCart.push(p);
-//   setCart(myCart);
-
-// } 
+useEffect(() => {
+  axios.get('https://medieinstitutet-wie-products.azurewebsites.net/api/products')
+  .then(response => setProducts(response.data));
+  //catch errors
+}, []);
 
 
+//when i click and this function runs, it runs the function declared in App , state is lifted
+//however, not allowed to trigger with onclick function on button... why? -------> I have to send the add to cart function inside an anonymous function ()=>{}
+function addToCart(product: IProducts){ //, MouseEvent:<HTMLButtonElement>
+  let p = {
+    productId: product.id,
+    amount: product.price
+  };
+    
+    props.updateCart(p); //props that was sent from App, this runs the function in parent
+    console.log(p);
+    // console.log(cart);
+  }
+
+ 
   const defaultValue:IProducts [] = [];
 
   const [products, setProducts] = useState(defaultValue);
 
-  useEffect(() => {
-    axios.get('https://medieinstitutet-wie-products.azurewebsites.net/api/products')
-    .then(response => setProducts(response.data));
-    //catch errors
-  }, []);
-
-  
   let productsHtml = products.map((product: IProducts) => {
      return (
       <section key={product.id}>
@@ -63,11 +56,12 @@ export default function Home(props:IaddToCartProps) { //props to send data to Ap
               <h3 title={product.name}>
                 <a href="/productdetail">{product.name}</a>
               </h3>
-                {/* <p className="description">{product.description}</p> */}
               <h4>{product.price} Kr</h4>
-              <button>Details</button>
-              <button>Add To Cart</button>
-              {/* <button type="button" onClick={addToCart}>Add to cart</button> */}
+              <Link to={`/productdetail/${product.id}`}>DETAILS</Link>
+              {/* <a href={`/productdetail/${product.id}`}><button>Details</button></a> */}
+
+              
+              <button type="button" onClick={()=>{addToCart(product)}}>Add to cart</button> 
             </div>
           </div>
         </div>
@@ -82,6 +76,7 @@ export default function Home(props:IaddToCartProps) { //props to send data to Ap
       
     <div className="product-page">
       {productsHtml}
+      
     </div>
     </>
   )
